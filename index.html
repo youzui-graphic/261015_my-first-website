@@ -95,6 +95,182 @@
     button { padding: 8px 16px; font-size: 16px; cursor: pointer; }
   </style>
 </head>
+
+<style>
+  /* 獅子彈出視窗背景 */
+  #lion-popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* 彈出視窗本體 */
+  #lion-popup .lion-card {
+    background: #fff9ee;
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    width: 300px;
+    max-width: 85vw;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+    animation: lion-appear 0.35s ease-out;
+  }
+
+  #lion-popup svg {
+    width: 100%;
+    max-width: 260px;
+    height: auto;
+  }
+
+  #lion-popup h2 {
+    color: #8b4b20;
+  }
+
+  #lion-popup .close-lion {
+    background: #c96d27;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  #lion-popup .close-lion:hover {
+    background: #a9531c;
+  }
+
+  @keyframes lion-appear {
+    from {
+      opacity: 0;
+      transform: scale(0.6);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+</style>
+
+<!-- 獅子彈出視窗 -->
+<div id="lion-popup">
+  <div class="lion-card">
+    <h2>獅子出現了！</h2>
+
+    <!-- 獅子 SVG -->
+    <svg xmlns="http://www.w3.org/2000/svg"
+         viewBox="0 0 300 300">
+
+      <!-- 鬃毛 -->
+      <path d="M150 15 L174 34 198 22 211 43
+        239 40 239 67 267 79 252 102
+        278 123 258 143 272 169 247 182
+        250 210 224 215 215 242 190 233
+        170 258 150 240 130 258 110 233
+        85 242 76 215 50 210 53 182
+        28 169 42 143 22 123 48 102
+        33 79 61 67 61 40 89 43
+        102 22 126 34 Z"
+        fill="#C96D27" stroke="#59351F"
+        stroke-width="4" stroke-linejoin="round"/>
+
+      <!-- 臉 -->
+      <circle cx="150" cy="137" r="83"
+        fill="#E99A3C" stroke="#59351F"
+        stroke-width="3"/>
+
+      <!-- 耳朵 -->
+      <circle cx="91" cy="74" r="20" fill="#F9D99A"/>
+      <circle cx="209" cy="74" r="20" fill="#F9D99A"/>
+      <circle cx="91" cy="74" r="10" fill="#B85E40"/>
+      <circle cx="209" cy="74" r="10" fill="#B85E40"/>
+
+      <!-- 臉部淺色區域 -->
+      <path d="M94 119 Q150 88 206 119
+        L218 157 Q208 207 150 220
+        Q92 207 82 157 Z"
+        fill="#F9D99A"/>
+
+      <!-- 眉毛 -->
+      <path d="M108 128 Q122 117 135 128
+        M165 128 Q178 117 192 128"
+        fill="none" stroke="#59351F"
+        stroke-width="4" stroke-linecap="round"/>
+
+      <!-- 眼睛 -->
+      <ellipse cx="121" cy="143" rx="9" ry="12" fill="white"/>
+      <ellipse cx="179" cy="143" rx="9" ry="12" fill="white"/>
+      <ellipse cx="123" cy="145" rx="4" ry="7" fill="#59351F"/>
+      <ellipse cx="177" cy="145" rx="4" ry="7" fill="#59351F"/>
+
+      <!-- 鼻子 -->
+      <path d="M137 166 Q150 158 163 166
+        Q160 180 150 180 Q140 180 137 166Z"
+        fill="#59351F"/>
+
+      <!-- 嘴巴 -->
+      <path d="M150 180 V190
+        Q137 203 126 190
+        M150 190 Q163 203 174 190"
+        fill="none" stroke="#59351F"
+        stroke-width="3.5" stroke-linecap="round"/>
+
+      <!-- 身體 -->
+      <path d="M103 222 Q91 242 105 263
+        L132 263 137 225
+        M197 222 Q209 242 195 263
+        L168 263 163 225"
+        fill="#F9D99A" stroke="#59351F"
+        stroke-width="3.5" stroke-linejoin="round"/>
+
+      <!-- 尾巴 -->
+      <path d="M213 232 Q249 224 250 251
+        Q251 267 235 267"
+        fill="none" stroke="#59351F"
+        stroke-width="8" stroke-linecap="round"/>
+      <path d="M213 232 Q249 224 250 251
+        Q251 267 235 267"
+        fill="none" stroke="#E99A3C"
+        stroke-width="4" stroke-linecap="round"/>
+    </svg>
+
+    <p>吼！我是小獅子！</p>
+    <button class="close-lion" id="close-lion">
+      關閉
+    </button>
+  </div>
+</div>
+
+<script>
+  // 找到原本的「點我」按鈕
+  const originalButton = document.querySelector("button");
+  const lionPopup = document.getElementById("lion-popup");
+  const closeLion = document.getElementById("close-lion");
+
+  // 點擊原本的按鈕，顯示獅子
+  if (originalButton) {
+    originalButton.addEventListener("click", function () {
+      lionPopup.style.display = "flex";
+    });
+  }
+
+  // 點擊關閉按鈕，隱藏獅子
+  closeLion.addEventListener("click", function () {
+    lionPopup.style.display = "none";
+  });
+
+  // 點擊視窗外的暗色背景，也能關閉
+  lionPopup.addEventListener("click", function (event) {
+    if (event.target === lionPopup) {
+      lionPopup.style.display = "none";
+    }
+  });
+</script>
+
 <body>
   <h1>哈囉，世界！</h1>
   <p>這是我做的第一個網頁。</p>
