@@ -245,32 +245,6 @@
   </div>
 </div>
 
-<script>
-  // 找到原本的「點我」按鈕
-  const originalButton = document.querySelector("button");
-  const lionPopup = document.getElementById("lion-popup");
-  const closeLion = document.getElementById("close-lion");
-
-  // 點擊原本的按鈕，顯示獅子
-  if (originalButton) {
-    originalButton.addEventListener("click", function () {
-      lionPopup.style.display = "flex";
-    });
-  }
-
-  // 點擊關閉按鈕，隱藏獅子
-  closeLion.addEventListener("click", function () {
-    lionPopup.style.display = "none";
-  });
-
-  // 點擊視窗外的暗色背景，也能關閉
-  lionPopup.addEventListener("click", function (event) {
-    if (event.target === lionPopup) {
-      lionPopup.style.display = "none";
-    }
-  });
-</script>
-
 <body>
   <h1>哈囉，世界！</h1>
   <p>這是我做的第一個網頁。</p>
